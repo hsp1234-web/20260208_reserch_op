@@ -2,6 +2,7 @@ import pandas as pd
 import os
 import pyarrow as pa
 import pyarrow.parquet as pq
+import chardet
 from src.exceptions import ConverterError
 
 class TaifexConverter:
@@ -52,7 +53,6 @@ class TaifexConverter:
             raise ConverterError(f"Failed to convert {csv_path} to parquet: {e}")
 
     def detect_encoding(self, file_path):
-        import chardet
         with open(file_path, 'rb') as f:
             rawdata = f.read(10000)
             result = chardet.detect(rawdata)
