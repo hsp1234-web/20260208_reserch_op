@@ -66,8 +66,8 @@ def test_downloader_timeout_mock(monkeypatch):
     monkeypatch.setattr(requests.Session, "get", mock_get)
 
     dl = TaifexDownloader(timeout=0.1)
-    with pytest.raises(TimeoutError):
-        dl.download("http://example.com", "dummy.zip")
+    status, message = dl.download("http://example.com", "dummy.zip")
+    assert status == 'timeout'
 
 def test_recursive_unzip(tmp_path):
     import zipfile
